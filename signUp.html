@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Matharoon</title>
+    <link rel="icon" href="images/matharoonLogo.png" type="image/png">
+    <link rel="stylesheet" href="global_pixel_theme.css">
+    <link rel="stylesheet" href="rtl_styles.css">
+    <style>
+        /* Minimal specific styles for signUp page, most should come from global_pixel_theme.css */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a092a;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin-top: 20px;
+            /* Adjust if main-nav is not on this page */
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-section h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--current-text);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 22px);
+            /* Account for padding and border */
+        }
+
+        .message-feedback {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container pixel-panel">
+        <div class="form-section">
+            <h1 class="pixel-title">Create Account</h1>
+
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpDisplayName">Username</label>
+                    <input type="text" id="signUpDisplayName" name="displayName" placeholder="Choose a cool username"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email</label>
+                    <input type="email" id="signUpEmail" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" name="password" placeholder="Min. 6 characters" required>
+                </div>
+                <button type="submit" class="pixel-button" style="width: 100%;">Sign Up</button>
+            </form>
+            <div id="signUpMessage" class="message-feedback"></div>
+            <a href="login.html" class="login-link">Already have an account? Log In</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- End Firebase SDK -->
+
+    <script src="firebase.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+
+</html>

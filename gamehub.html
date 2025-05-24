@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Matharoon Game Hub - Choose your math adventure!">
+    <title>Matharoon - Game Hub</title>
+    <link rel="icon" href="images/matharoonLogo.png" type="image/png">
+    <link rel="stylesheet" href="global_pixel_theme.css">
+    <link rel="stylesheet" href="gamehub.css"> <!-- Added link to gamehub.css -->
+    <link rel="stylesheet" href="rtl_styles.css">
+    <style>
+        /* Removed previous inline styles for body and container as they are now in gamehub.css or global_pixel_theme.css */
+    </style>
+</head>
+
+<body class="dark-mode gamehub-page"> <!-- Added gamehub-page class for specific styling -->
+    <header class="main-nav">
+        <div class="logo">MATHAROON</div>
+        <nav>
+            <ul>
+                <li><a href="gamehub.html" class="pixel-button active" data-translate="nav_play_games">Play Games</a>
+                </li>
+                <li><a href="store.html" class="pixel-button" data-translate="nav_store">Store</a></li>
+                <li><a href="leaderboard.html" class="pixel-button" data-translate="nav_leaderboard">Leaderboard</a>
+                </li>
+                <li><a href="careerHistory.html" class="pixel-button" data-translate="nav_career">Career</a></li>
+                <li><a href="aboutUs.html" class="pixel-button" data-translate="nav_about">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="nav-right-controls">
+            <div class="language-selector" style="margin-right: 10px;">
+                <select id="languageSelect" class="pixel-select">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                </select>
+            </div>
+            <button class="pixel-button theme-toggle" onclick="toggleTheme()" data-translate="theme_toggle_light">Light
+                Mode</button>
+            <div id="auth-container" class="auth-links" style="display: inline-flex; align-items: center;">
+                <!-- Auth links will be populated by auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="pixel-title" data-translate="game_hub_title">Game Hub</h1>
+        <p class="pixel-text" data-translate="select_a_game_to_play">Choose your math adventure!</p>
+
+        <div class="game-options"><!-- START game-options -->
+
+            <!-- —— Speed Drill —— -->
+            <div class="game-card pixel-panel">
+                <h2 data-translate="speed_drill_game">Matharoon Speed Drill</h2>
+                <p data-translate="speed_drill_description">
+                    Test your speed and accuracy with classic math problems.
+                </p>
+
+                <a href="gamePanel.html" class="game-button-link" aria-label="Play Speed Drill">
+                    <img class="game-button-img i18n-img" src="images/playSD.png" data-src-en="images/playSD.png"
+                        data-src-ar="images/playSDAr.png" alt="Play Speed Drill" data-translate="play_now_button">
+                </a>
+            </div>
+
+            <!-- —— RoonRun —— -->
+            <div class="game-card pixel-panel">
+                <h2 data-translate="roon_run_game">RoonRun</h2>
+                <p data-translate="roon_run_description">
+                    Help Mr.&nbsp;Roon navigate a world of math challenges!
+                </p>
+
+                <a href="roonRun.html" class="game-button-link" aria-label="Play RoonRun">
+                    <img class="game-button-img i18n-img" src="images/playroon.png" data-src-en="playroon.png"
+                        data-src-ar="images/playroonAr.png" alt="Play RoonRun" data-translate="play_now_button">
+                </a>
+            </div>
+
+        </div><!-- END game-options -->
+
+    </div>
+    <a href="index.html" class="pixel-button back-button" style="margin-top: 30px;"
+        data-translate="back_to_main_button">Back to Main Page</a>
+    </div>
+
+    <footer class="pixel-footer">
+        <p data-translate="footerText">&copy; 2024-2025 Matharoon. All rights reserved.</p>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="language_switcher.js"></script>
+    <script src="firebase.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+            document.body.classList.toggle("dark-mode"); // Ensure one is always present
+            const themeToggleBtn = document.querySelector(".theme-toggle");
+            const currentLang = localStorage.getItem("preferredLang") || "en";
+            if (document.body.classList.contains("light-mode")) {
+                themeToggleBtn.textContent = getTranslatedString("theme_toggle_dark", currentLang);
+                localStorage.setItem("theme", "light");
+            } else {
+                themeToggleBtn.textContent = getTranslatedString("theme_toggle_light", currentLang);
+                localStorage.setItem("theme", "dark");
+            }
+        }
+        // Initialize theme based on localStorage
+        if (localStorage.getItem("theme") === "light") {
+            document.body.classList.add("light-mode");
+            document.body.classList.remove("dark-mode");
+        } else {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
+        }
+        // Set initial button text after translations are potentially loaded
+        // The language_switcher.js also calls updateThemeToggleButtonText
+        // This is a fallback or initial setup.
+        document.addEventListener("translationsLoaded", () => {
+            const currentLang = localStorage.getItem("preferredLang") || "en";
+            const themeToggleBtn = document.querySelector(".theme-toggle");
+            if (document.body.classList.contains("light-mode")) {
+                themeToggleBtn.textContent = getTranslatedString("theme_toggle_dark", currentLang);
+            } else {
+                themeToggleBtn.textContent = getTranslatedString("theme_toggle_light", currentLang);
+            }
+        });
+
+        // The auth.js script now handles dynamic creation of login/logout/signup links in #auth-container
+        // So, the old static account dropdown logic here can be removed if auth.js is comprehensive.
+        // For safety, ensure auth.js is loaded and does its job.
+    </script>
+</body>
+
+</html>

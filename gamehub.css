@@ -1,0 +1,124 @@
+/* gamehub.css - Specific styles for the Game Hub page */
+
+body.gamehub-page {
+    background-color: var(--pixel-color-background-darker, #110520);
+    /* Darker, distinct background for game hub */
+    color: var(--pixel-color-text-light, #f0f0f0);
+}
+
+.gamehub-page .main-nav {
+    background-color: var(--pixel-color-primary-dark, #301050);
+    /* Slightly different nav background */
+    border-bottom: 3px solid var(--pixel-color-accent, #9030d0);
+}
+
+.gamehub-page .container {
+    margin-top: 80px;
+    /* Adjust if nav height is different */
+    background-color: rgba(10, 5, 20, 0.7);
+    /* Dark, semi-transparent panel for content */
+    padding: 30px;
+    border: 3px solid var(--pixel-color-accent-secondary, #c060ff);
+    box-shadow: 0 0 20px rgba(144, 48, 208, 0.5);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: relative;
+}
+
+.gamehub-page .pixel-title {
+    color: var(--pixel-color-accent, #e080ff);
+    font-size: 2.8em;
+    text-shadow: 2px 2px 0px var(--pixel-color-shadow, #000000aa);
+    margin-bottom: 20px;
+}
+
+.gamehub-page .pixel-text {
+    color: var(--pixel-color-text-medium, #cccccc);
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.game-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.game-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    background-color: var(--pixel-color-background-medium, #2a1a3a);
+    padding: 25px;
+    border: 2px solid var(--pixel-color-border, #503070);
+    box-shadow: 3px 3px 0px var(--pixel-color-shadow, #110520);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 5px 5px var(--pixel-color-shadow-darker, #000000cc);
+    border-color: var(--pixel-color-accent, #e080ff);
+}
+
+.game-card h2 {
+    color: var(--pixel-color-primary-light, #f0c0ff);
+    font-size: 1.7em;
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    color: var(--pixel-color-text-light, #e0e0e0);
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: -40px;
+}
+
+.game-card .button-img0-link {
+    display: block;
+    margin-top: 15px;
+}
+
+.button-img0 {
+    cursor: pointer;
+    max-width: 300px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--pixel-border-color);
+}
+
+.button-img:hover {
+    transform: scale(1.03);
+}
+
+.game-card .pixel-button {
+    background-color: var(--pixel-color-button-secondary, #9030d0);
+    color: var(--pixel-color-button-text, #ffffff);
+    padding: 12px 25px;
+    font-size: 1.1em;
+}
+
+.game-card .pixel-button:hover {
+    background-color: var(--pixel-color-button-secondary-hover, #a040e0);
+}
+
+.gamehub-page .pixel-button.back-button {
+    margin-top: 40px;
+    background-color: var(--pixel-color-button-neutral, #505070);
+}
+
+.gamehub-page .pixel-button.back-button:hover {
+    background-color: var(--pixel-color-button-neutral-hover, #606080);
+}
+
+/* Ensure the active nav link for Game Hub has a distinct style */
+.gamehub-page .main-nav nav ul li a.active {
+    background-color: var(--pixel-color-accent, #9030d0);
+    color: var(--pixel-color-background-darker, #110520);
+    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.3);
+}

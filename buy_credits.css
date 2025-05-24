@@ -1,0 +1,85 @@
+/* buy_credits.css */
+
+.credit-bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.credit-bundle-card {
+    background-color: var(--pixel-color-background-light);
+    border: 2px solid var(--pixel-color-border);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 4px 4px 0px var(--pixel-color-shadow);
+}
+
+.credit-bundle-card h3 {
+    color: var(--pixel-color-primary);
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.credit-bundle-card .bundle-credits {
+    font-size: 2em;
+    color: var(--pixel-color-accent);
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.credit-bundle-card .bundle-price {
+    font-size: 1.2em;
+    color: var(--pixel-color-text-dark);
+    margin-bottom: 15px;
+}
+
+.buy-bundle-button {
+    background-color: var(--pixel-color-success);
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid var(--pixel-color-border-dark);
+    box-shadow: 2px 2px 0px var(--pixel-color-shadow);
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buy-bundle-button:hover {
+    background-color: #4cae4c; /* Darker green */
+}
+
+.buy-bundle-button:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.payment-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--pixel-color-background-medium);
+    border: 2px solid var(--pixel-color-border);
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.go-back-button {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .credit-bundles-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+    .credit-bundle-card h3 {
+        font-size: 1.3em;
+    }
+    .credit-bundle-card .bundle-credits {
+        font-size: 1.8em;
+    }
+}
+

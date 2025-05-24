@@ -1,0 +1,61 @@
+/* RTL specific styles */
+body.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Example: Flip floats */
+.rtl .float-left {
+    float: right !important;
+}
+
+.rtl .float-right {
+    float: left !important;
+}
+
+/* Example: Adjust margins and paddings */
+.rtl .margin-left-element {
+    margin-left: 0;
+    margin-right: auto; /* Or specific value */
+}
+
+.rtl .padding-left-element {
+    padding-left: 0;
+    padding-right: 10px; /* Or specific value */
+}
+
+/* Add more specific RTL adjustments as needed for your layout */
+
+/* Ensure the language toggle button is styled appropriately and visible */
+.lang-toggle {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+/* Navigation adjustments for RTL if using flexbox */
+/* nav ul, .navbar ul {
+    flex-direction: row-reverse; 
+}*/
+
+/* General text alignment for RTL */
+.rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl h5, .rtl h6, .rtl p, .rtl li, .rtl label, .rtl span, .rtl div {
+    text-align: right;
+}
+
+/* Ensure form elements are also aligned correctly */
+.rtl input[type="text"],
+.rtl input[type="password"],
+.rtl input[type="email"],
+.rtl textarea {
+    text-align: right;
+}
+
+/* Specific adjustments for Matharoon elements if needed after testing */
+/* For example, if a specific game UI element needs flipping */
+/* .rtl .game-element {
+    transform: scaleX(-1); 
+}*/
+

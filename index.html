@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="Matharoon is an interactive learning platform where kids and students play fun math games. Join now!">
+    <title data-translate-key="page_title_index">Matharoon - Fun Math Games & Learning Platform</title>
+    <link rel="icon" href="images/matharoonLogo.png" type="image/png">
+    <link rel="stylesheet" href="global_pixel_theme.css">
+    <link rel="stylesheet" href="rtl_styles.css">
+    <style>
+        /* Inline styles from original index.html - to be refactored or moved to global_pixel_theme.css or a new index_specific.css */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a092a;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+            position: relative;
+        }
+
+        #animatedBackgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Account button */
+        .account-menu {
+            position: relative;
+        }
+
+        .account-btn {
+            background: #E67E22;
+            color: #fff;
+            padding: 12px 20px;
+            border: 2px solid var(--pixel-border-color);
+        }
+
+        .account-btn:hover {
+            background: #D35400;
+        }
+
+        /* Drop-down panel */
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            background: var(--pixel-panel-bg, #311b50);
+            /* dark panel, NOT white */
+            border: 2px solid var(--pixel-border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity .25s ease, transform .25s ease;
+        }
+
+        .dropdown-content:not(.hidden) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Links inside the panel */
+        .dropdown-link,
+        .dropdown-link.hidden {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .dropdown-link:hover {
+            background: #E67E22;
+            color: #fff;
+        }
+
+        /* Icons */
+        .icon-right {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none !important;
+        }
+
+
+        .container {
+            margin-top: 100px;
+            padding-bottom: 60px;
+            width: 90%;
+            max-width: 1250px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-title-img {
+            max-width: 60%;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        .sections-row {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section-card {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 0;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+
+        .button-img0-link {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .button-img0 {
+            cursor: pointer;
+            max-width: 300px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--pixel-border-color);
+        }
+
+        .button-img:hover {
+            transform: scale(1.03);
+        }
+
+
+        .button-img-link {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .button-img {
+            cursor: pointer;
+            max-width: 300px;
+            height: auto;
+            border-radius: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--pixel-border-color);
+        }
+
+        .button-img:hover {
+            transform: scale(1.03);
+        }
+
+        .button-img1-link {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .button-img1 {
+            cursor: pointer;
+            max-width: 350px;
+            height: auto;
+            margin-top: -62px;
+            border-radius: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--pixel-border-color);
+        }
+
+        .button-img1:hover {
+            transform: scale(1.03);
+        }
+
+
+        #newsBox {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            max-height: 150px;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 0.9em;
+            text-align: left;
+            z-index: 1001;
+        }
+
+        #newsBox h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        #newsBox ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #newsBox li {
+            padding: 10px 0;
+        }
+
+        #newsBox li:last-child {
+            border-bottom: none;
+        }
+
+        #newsBox .news-item-date {
+            font-size: 0.8em;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sections-row {
+                flex-direction: column;
+            }
+
+            #newsBox {
+                width: calc(100% - 20px);
+                max-height: 100px;
+            }
+        }
+    </style>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "url": "https://www.matharoon.com",
+          "logo": "https://www.matharoon.com/matharoonLogo.png",
+          "name": "Matharoon"
+        }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3083437636248645"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="dark-mode">
+    <canvas id="animatedBackgroundCanvas"></canvas>
+
+    <div id="newsBox" class="pixel-panel">
+        <h4>Latest News</h4>
+        <ul id="newsList">
+            <li>Loading news...</li>
+        </ul>
+    </div>
+
+    <header class="main-nav">
+        <div class="logo">MATHAROON</div>
+        <nav>
+            <ul>
+                <li><a href="gamehub.html" class="pixel-button">Play Games</a></li>
+                <li><a href="store.html" class="pixel-button">Store</a></li>
+                <li><a href="leaderboard.html" class="pixel-button">Leaderboard</a></li>
+                <li><a href="careerHistory.html" class="pixel-button">Career</a></li>
+                <li><a href="aboutUs.html" class="pixel-button">About Us</a></li>
+            </ul>
+        </nav>
+        <!---- BEGIN: Account menu – drop this inside <header> -->
+        <div class="account-menu pixel-panel" id="accountMenuContainer">
+            <!-- aria-expanded toggles in JS -->
+            <button class="pixel-button account-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false">
+                Account ▾
+            </button>
+            <div class="dropdown-content hidden" id="accountDropdown" role="menu">
+                <a href="login.html" role="menuitem" class="pixel-button dropdown-link">
+                    <span>Log&nbsp;In</span>
+                    <img src="images/login.png" alt="" class="icon-right">
+                </a>
+
+                <a href="signUp.html" role="menuitem" class="pixel-button dropdown-link">
+                    <span>Sign&nbsp;Up</span>
+                    <img src="images/add.png" alt="" class="icon-right">
+                </a>
+
+                <a href="#" role="menuitem" class="pixel-button dropdown-link hidden" id="logoutLink">Log&nbsp;Out</a>
+                <div role="menuitem" class="pixel-button dropdown-link hidden" id="userCredits">Credits&nbsp;0</div>
+            </div>
+            <!---- END: Account menu -->
+
+    </header>
+
+    <div class="container">
+        <img src="images/matharoonCom.png" alt="Matharoon" class="main-title-img">
+        <div class="sections-row">
+            <div class="section-card pixel-panel">
+                <a href="gamehub.html" id="GameIntroLink" style="text-decoration: none; color: inherit;">
+                    <h2>Enter the Game Hub</h2>
+                    <p>Choose your math adventure: Speed Drill or the new RoonRun!</p>
+                    <img src="images/getStarted.png" alt="Play Games" class="button-img0">
+                </a>
+            </div>
+            <div class="section-card pixel-panel">
+                <a href="store.html" style="text-decoration: none; color: inherit;">
+                    <h2>Visit the Store</h2>
+                    <p>Get new characters for RoonRun and other cool items!</p>
+                    <img src="images/store.png" alt="Store" class="button-img1">
+                </a>
+            </div>
+            <div class="section-card pixel-panel">
+                <a href="leaderboard.html" style="text-decoration: none; color: inherit;">
+                    <h2>Leaderboards</h2>
+                    <p>See who is topping the charts in Matharoon challenges!</p>
+                    <img src="images/viewLeaderboard.png" alt="Leaderboard" class="button-img">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- End Firebase SDK -->
+
+    <script src="translations.js"></script>
+    <script src="language_switcher.js"></script>
+    <script src="firebase.js"></script>
+    <script src="auth.js"></script>
+    <script src="index.js"></script>
+    <script src="animatedBackground.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+            const themeToggleBtn = document.querySelector(".theme-toggle");
+            if (document.body.classList.contains("light-mode")) {
+                themeToggleBtn.textContent = "Dark Mode";
+                localStorage.setItem("theme", "light");
+            } else {
+                themeToggleBtn.textContent = "Light Mode";
+                localStorage.setItem("theme", "dark");
+            }
+        }
+        if (localStorage.getItem("theme") === "light") {
+            document.body.classList.add("light-mode");
+            document.querySelector(".theme-toggle").textContent = "Dark Mode";
+        } else {
+            document.body.classList.remove("light-mode");
+            document.querySelector(".theme-toggle").textContent = "Light Mode";
+        }
+
+        const newsItems = [
+            { date: "2025-05-10", message: "Welcome to the new Matharoon!" },
+            { date: "2025-05-09", message: "RoonRun game coming soon!" },
+            { date: "2025-05-08", message: "Check out the new store items!" }
+        ];
+        const newsList = document.getElementById("newsList");
+        newsList.innerHTML = newsItems.map(item => `<li><span class="news-item-date">${item.date}</span>${item.message}</li>`).join("");
+
+        const accountBtn = document.getElementById("accountBtn");
+        const accountDropdown = document.getElementById("accountDropdown");
+        accountBtn.addEventListener("click", () => {
+            accountDropdown.classList.toggle("hidden");
+        });
+        document.addEventListener("click", function (event) {
+            const accountMenuContainer = document.getElementById("accountMenuContainer");
+            if (!accountMenuContainer.contains(event.target)) {
+                accountDropdown.classList.add("hidden");
+            }
+        });
+
+    </script>
+</body>
+
+</html>

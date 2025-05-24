@@ -1,0 +1,117 @@
+/* CSS for RoonRun Game */
+
+.roonrun-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; /* For overlay positioning */
+}
+
+#roonRunGameArea {
+    position: relative;
+    width: 800px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed */
+    border: 2px solid var(--pixel-color-border, #000); /* Fallback border color */
+    margin-bottom: 1rem;
+    background-color: transparent; /* Removed background for better character visibility */
+    overflow: hidden; /* Ensure elements within don't spill out if canvas is transparent */
+}
+
+#roonRunCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* The canvas itself might have a background drawn by JS, this CSS targets the container */
+}
+
+.roonrun-ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2rem;
+    color: var(--pixel-color-text-dark, #333); /* Using theme variable */
+    background-color: rgba(255, 255, 255, 0.8); /* Light, slightly transparent background for UI text */
+    padding: 5px 10px;
+    border-radius: 0; /* Pixel theme often avoids rounded corners */
+    border: 1px solid var(--pixel-color-border, #000);
+    box-shadow: 2px 2px 0px var(--pixel-color-shadow, #888); /* Pixel shadow */
+}
+
+/* Overlay Styles (reusable for difficulty and game over) - Aligned with pixel theme */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Darker overlay for better contrast */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.overlay-content {
+    background-color: var(--pixel-color-background-light, #fff);
+    padding: 2rem;
+    border: 2px solid var(--pixel-color-border, #000);
+    text-align: center;
+    box-shadow: 4px 4px 0px var(--pixel-color-shadow, #888);
+    min-width: 300px; /* Ensure content has some width */
+}
+
+.overlay-content h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--pixel-color-primary, #000);
+    font-size: 1.8em;
+}
+
+.overlay-content button,
+.overlay-content .pixel-button /* Ensure pixel-button class is used or styles are applied */
+{
+    background-color: var(--pixel-color-button, #4CAF50);
+    color: var(--pixel-color-button-text, white);
+    border: 2px solid var(--pixel-color-border-dark, #000);
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0.5rem;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px var(--pixel-color-shadow, #555);
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+}
+
+.overlay-content button:hover,
+.overlay-content .pixel-button:hover {
+    background-color: var(--pixel-color-button-hover, #45a049);
+}
+
+.overlay-content button:active,
+.overlay-content .pixel-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Specific to RoonRun */
+#difficultySelectorOverlay .difficulty-btn {
+    min-width: 140px; /* Slightly wider for text */
+}
+
+#roonRunGameOverOverlay p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--pixel-color-text-dark, #333);
+}
+
+/* Ensure game container uses pixel theme variables if not already */
+.roonrun-container {
+    font-family: var(--pixel-font-family, monospace); /* Example, if defined in global_pixel_theme.css */
+}
+

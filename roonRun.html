@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoonRun - Matharoon</title>
+    <link rel="icon" href="images/matharoonLogo.png" type="image/png">
+    <link rel="stylesheet" href="global_pixel_theme.css">
+    <link rel="stylesheet" href="roonRun.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+            position: relative;
+        }
+
+        .game-container.roonrun-container {
+            border: 5px solid #fff;
+            padding: 10px;
+            background-color: #222;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            position: relative;
+            /* For overlays */
+        }
+
+        #roonRunCanvas {
+            border: 2px solid #0f0;
+            /* background-color: #000; */
+            /* Default canvas background */
+        }
+
+        .roonrun-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: "Press Start 2P", cursive;
+            font-size: 18px;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: "Press Start 2P", cursive;
+            z-index: 100;
+            /* Ensure it_s on top */
+        }
+
+        .overlay.hidden {
+            display: none;
+        }
+
+        .overlay-content {
+            background-color: var(--pixel-panel-bg, #2a2a3a);
+            padding: 20px;
+            border: 3px solid var(--pixel-border-color-accent, #0f0);
+            border-radius: 5px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .overlay-content h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--pixel-text-color-accent, #0f0);
+        }
+
+        .overlay-content p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .overlay-content button {
+            padding: 10px 15px;
+            font-family: "Press Start 2P", cursive;
+            font-size: 14px;
+            margin: 10px 5px 0 5px;
+            cursor: pointer;
+            background-color: var(--pixel-button-bg, #0f0);
+            color: var(--pixel-button-text, #000);
+            border: 2px solid var(--pixel-border-color, #fff);
+            box-shadow: 2px 2px 0px var(--pixel-shadow-color, #000);
+        }
+
+        .overlay-content button:hover {
+            background-color: var(--pixel-button-hover-bg, #0c0);
+        }
+
+        .overlay-content button:disabled {
+            background-color: #555;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Character Selection Modal Styles */
+        #characterSelectModal .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            /* Limit height and allow scroll */
+            overflow-y: auto;
+            padding: 5px;
+            border: 1px solid var(--pixel-border-color);
+        }
+
+        #characterSelectModal .character-option {
+            border: 2px solid var(--pixel-border-color, #555);
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            position: relative;
+            /* For locked icon */
+        }
+
+        #characterSelectModal .character-option:hover {
+            border-color: var(--pixel-border-color-accent, #0f0);
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+
+        #characterSelectModal .character-option.selected {
+            border-color: var(--pixel-color-accent, #E67E22);
+            background-color: rgba(230, 126, 34, 0.2);
+        }
+
+        #characterSelectModal .character-option.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: rgba(100, 100, 100, 0.2);
+        }
+
+        #characterSelectModal .character-option.locked:hover {
+            border-color: var(--pixel-border-color, #555);
+            background-color: rgba(100, 100, 100, 0.2);
+        }
+
+        #characterSelectModal .character-option img {
+            width: 48px;
+            height: 48px;
+            image-rendering: pixelated;
+            margin-bottom: 5px;
+        }
+
+        #characterSelectModal .character-option .char-name {
+            font-size: 12px;
+            word-break: break-word;
+        }
+
+        #characterSelectModal .locked-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 18px;
+            color: red;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #1a1a1a;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            border-bottom: 3px solid #0f0;
+            margin-bottom: 20px;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+        }
+
+        .navbar #userDisplayName {
+            color: #0f0;
+            margin-right: 15px;
+        }
+
+        .navbar #logoutBtn {
+            font-family: "Press Start 2P", cursive;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="images/matharoonLogo.png" alt="Matharoon Logo"></a>
+        </div>
+        <div>
+            <span id="userDisplayName">Guest</span>
+            <button id="logoutBtn" class="pixel-button hidden">Logout</button>
+        </div>
+    </nav>
+
+    <div class="game-container roonrun-container">
+        <div id="characterSelectModal" class="overlay">
+            <div class="overlay-content">
+                <h2>Select Your Character</h2>
+                <div class="character-grid" id="characterGrid">
+                    <!-- Character options will be populated by JS -->
+                </div>
+                <button id="startGameWithCharBtn" disabled>Start Game</button>
+                <button id="backToMenuBtnFromCharSelect">Back to Menu</button>
+            </div>
+        </div>
+
+        <div id="roonRunGameArea">
+            <canvas id="roonRunCanvas"></canvas>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Matharoon. All rights reserved.</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- End Firebase SDK -->
+
+    <script src="firebase.js"></script>
+    <script src="auth.js"></script>
+    <script src="roonRun.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/matharoonLogo.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Matharoon</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #6A0DAD;
+            /* Vibrant Purple */
+            --secondary-color: #E67E22;
+            /* Bright Orange */
+            --accent-color: #2ECC71;
+            /* Emerald Green */
+            --bg-color-light: #FDF6FD;
+            /* Very light purple/pink */
+            --text-color-light: #3D2C42;
+            /* Dark Purple */
+            --container-bg-light: #FFFFFF;
+            --card-bg-light: #F9F3F9;
+
+            --bg-color-dark: #1A082E;
+            /* Deep Dark Purple */
+            --text-color-dark: #EAE0F3;
+            /* Light Lavender */
+            --container-bg-dark: #2B1442;
+            /* Dark Purple */
+            --card-bg-dark: #3D2C42;
+            /* Medium Dark Purple */
+
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            line-height: 1.7;
+        }
+
+        body.dark-mode {
+            --bg-color-light: var(--bg-color-dark);
+            --text-color-light: var(--text-color-dark);
+            --container-bg-light: var(--container-bg-dark);
+            --card-bg-light: var(--card-bg-dark);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-color);
+            padding: 12px 35px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: calc(100% - 70px);
+            /* Account for padding */
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo img {
+            height: 55px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:hover {
+            background: #D35400;
+            /* Darker Orange */
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle {
+            /* Specific styling if needed, otherwise inherits from .nav-button */
+
+        }
+
+        .home-link {
+            /* Specific styling if needed, otherwise inherits from .nav-button */
+
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 120px auto 50px;
+            padding: 30px 40px;
+            background: var(--container-bg-light);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(90, 40, 120, 0.1);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+        }
+
+        section p,
+        section ul {
+            font-family: var(--font-secondary);
+            font-size: 1.1rem;
+            color: var(--text-color-light);
+            margin-bottom: 20px;
+            max-width: 850px;
+        }
+
+        body.dark-mode section p,
+        body.dark-mode section ul {
+            color: var(--text-color-dark);
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: var(--card-bg-light);
+            border: 1px solid #E8DAEF;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Added more expressive transition */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .team-member {
+            border-color: #4A2B56;
+        }
+
+        .team-member:hover {
+            box-shadow: 0 12px 25px rgba(90, 40, 120, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .team-member img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 18px;
+            border: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .team-member h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        body.dark-mode .team-member h3 {
+            color: var(--accent-color);
+        }
+
+        .team-member p {
+            font-size: 0.95rem;
+            color: var(--text-color-light);
+            max-width: 100%;
+            text-align: center;
+        }
+
+        body.dark-mode .team-member p {
+            color: var(--text-color-dark);
+        }
+
+        ul {
+            padding-left: 25px;
+            list-style: none;
+        }
+
+        ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\2728";
+            /* Sparkle emoji or could use an SVG */
+            color: var(--secondary-color);
+            position: absolute;
+            left: -5px;
+            top: 0px;
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            background: var(--primary-color);
+            color: #FDF6FD;
+            padding: 25px 20px;
+            font-size: 0.95em;
+            font-family: var(--font-secondary);
+            margin-top: 40px;
+        }
+
+        /* Scrollbar styling for a more modern look */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D35400;
+        }
+
+        body.dark-mode ::-webkit-scrollbar-track {
+            background: var(--bg-color-dark);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="images/matharoonLogo.png" alt="Matharoon Logo" />
+            </a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-button theme-toggle" onclick="toggleTheme()">Dark Mode</button>
+            <a href="index.html" class="nav-button home-link">Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="intro">
+            <h2>Welcome to Matharoon!</h2>
+            <p>Matharoon is far more than just another mathematics competition. It's a vibrant, engaging platform
+                meticulously designed to help students like you unlock the truly exhilarating and fun side of
+                mathematics. We believe learning should be an adventure, and Matharoon is your map to discovering the
+                wonders of numbers, logic, and problem-solving in an entirely new light.</p>
+        </section>
+
+        <section id="who-we-are">
+            <h2>Who We Are</h2>
+            <p>We are a dynamic and dedicated team of high school students, united by our profound passion for
+                mathematics and a strong desire to build a thriving community. Matharoon was born from our shared
+                vision: to create an inspiring and inclusive space that connects students from all backgrounds through a
+                mutual love of tackling challenges and the elegant beauty of problem-solving.</p>
+        </section>
+
+        <section id="vision">
+            <h2>Our Vision for Math</h2>
+            <p>Our core belief is that mathematics is an omnipresent force – it's not confined to dusty textbooks or
+                intimidating equations. Instead, it's intricately woven into the fabric of exciting games, captivating
+                logic puzzles, the collaborative spirit of teamwork, and everyday critical thinking. The ultimate goal
+                of Matharoon is to fundamentally redefine how students perceive and interact with mathematics,
+                transforming it from a daunting subject into an empowering tool for creativity and discovery.</p>
+        </section>
+
+        <section id="creators">
+            <h2>Meet the Creators</h2>
+            <div class="team">
+                <div class="team-member">
+                    <img src="images/star.png" alt="Kahail - Creator of Matharoon" />
+                    <!-- Placeholder image, ideally replace with actual or illustrative photo -->
+                    <h3>Kahail</h3>
+                    <p>Kahail's exceptional mathematical prowess and insightful technological knowledge are the driving
+                        forces that give Matharoon its unique aura and cutting-edge feel. He's passionately dedicated to
+                        redefining the landscape of math games, making them more engaging and educational. It's no
+                        surprise he's often referred to as premium in his endeavors!</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/add.png" alt="Future Team Member" /> <!-- Placeholder for another team member -->
+                    <h3>Future Innovator</h3>
+                    <p>Our team is always growing! We are looking for passionate individuals to help shape the future of
+                        Matharoon. Could this be you?</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <h2>Our Mission & Your Journey</h2>
+            <p>We are on a mission to cultivate an enriching environment where students can:</p>
+            <ul>
+                <li>Significantly boost their confidence in approaching and solving complex mathematical problems.</li>
+                <li>Actively engage in highly creative and stimulating mathematical experiences that go beyond
+                    traditional learning.</li>
+                <li>Connect with a diverse community of peers who share a genuine enthusiasm for mathematics and
+                    collaborative learning.</li>
+            </ul>
+            <p>...and yes, on this exciting journey, you might just become a certified “Baqeera” – a true Matharoon
+                champion!</p>
+        </section>
+
+        <section id="contact">
+            <h2>Get in Touch!</h2>
+            <p>We genuinely value your feedback, ideas, and questions. Please don't hesitate to reach out to us anytime.
+                We're here to help and listen!</p>
+            <ul>
+                <li><strong>Kahail:</strong> <a href="mailto:kahailmek@gmail.com"
+                        style="color: var(--secondary-color); text-decoration:none;">Creator</a>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        &copy; <span id="currentYear"></span> Matharoon — Crafted with passion by students, for students. Fueling the
+        future, one equation at a time.
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links (optional, but good for UX)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('section');
+        const options = {
+            root: null, // relative to document viewport 
+            rootMargin: '0px',
+            threshold: 0.1 // trigger when 10% of the section is visible
+        };
+
+        const observer = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Dynamic Year for Footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    </script>
+    <script src="aboutUs.js"></script>
+    <!-- Removed index.js and firebase.js as they might not be relevant for a static about us page, review if needed -->
+    <!-- If firebase.js is needed for theme preference or user data, it should be re-added -->
+</body>
+
+</html>
